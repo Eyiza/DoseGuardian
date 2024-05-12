@@ -1,4 +1,5 @@
 const Prescription = require('../models/prescription');
+const Dispenser = require('../models/dispenser');
 
 exports.create = async (req, res) => {
     try {
@@ -54,7 +55,32 @@ exports.getbyId = async (req, res) => {
   } catch (error) {
     console.log(error)
     res.status(500).json(error);
-}
+  }
+};
+
+exports.getInstructionsForDispenser = async (req, res) => {
+  try {
+    const serialNumber = req.params.serialNumber;
+
+    const dispenser = await Dispenser.findOne({serialNumber});
+    if (!dispenser) {
+      return res.status(404).json({ error: 'Dispenser not found' });
+    }
+
+    const prescription = await Prescription.findOne({dispenserSerialNumber: serialNumber});
+
+    if (!prescription) return res.status(200).json({ success: true, message: "No active prescription found for this dispenser" });
+
+    return res.status(200).json({
+      success: true,
+      message: "Prescription found",
+      prescription
+      });
+      
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error);
+  }
 };
 
 exports.delete = async (req, res) => {

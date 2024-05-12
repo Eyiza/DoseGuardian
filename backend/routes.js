@@ -12,7 +12,6 @@ router
     .post('/login', userController.login)
     .post('/logout', userController.logout)
 
-
     // Dispenser routes
     .post('/dispenser', isAuth, DispenserController.create)
     .get('/dispensers', isAuth, DispenserController.getAll)
@@ -22,6 +21,7 @@ router
     .post('/prescription', isAuth, PrescriptionController.create)
     .get('/prescriptions', isAuth, PrescriptionController.getAll)
     .get('/prescription/:id', isAuth, PrescriptionController.getbyId)
+    .get('/dispenser-prescription/:serialNumber', PrescriptionController.getInstructionsForDispenser)
     .delete('/prescription/:id', isAuth, PrescriptionController.delete)
 
 
