@@ -13,6 +13,10 @@ router
 
 
     // Dispenser routes
+    .post('/dispenser', isAuth, DispenserController.create)
+    .get('/dispensers', isAuth, DispenserController.getAll)
+    .get('/dispensers/search', isAuth, DispenserController.search)
+
 
 
 

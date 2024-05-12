@@ -7,6 +7,15 @@ const DispenserSchema = new Schema(
             required: true,
             unique: true
         },
+        layers: {
+            type: Number,
+            required: true
+        },
+        drugType: {
+            type: String,
+            enum: ['tablet', 'capsule', 'liquid'],
+            required: true
+        },
         available: {
             type: Boolean,
             default: true

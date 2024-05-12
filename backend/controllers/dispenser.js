@@ -1,51 +1,39 @@
-const mongoose = require('mongoose');
 const Dispenser = require('../models/dispenser');
 
-
-exports.getPrescriptions = async (req, res) => {
+exports.create = async (req, res) => {
     try {
-        const prescriptions = await Prescription.find();
-        res.status(200).json(prescriptions);
-    } catch (error) {
-      console.log(error)
-      res.status(500).json(error);
-  }
-};
+        const { serialNumber, layers, drugType } = req.body;
 
+        const dispenser = new Dispenser({ serialNumber, layers, drugType });
 
-exports.login = async (req, res) => {
-    try {        
-        const {email, password} = req.body;
-        const user = await User.findOne({email})
-
-        if(!user){
-            return res.status(404).json({
-                success: false,
-                message: 'Sorry, the email was not found. Please try again.'});
-        }
-
-        const isMatch = bcrypt.compareSync(password, user.password);
-        
-        if (!isMatch) {
-            return res.status(400).json({
-                success: false,
-                message: 'Invalid Password. Please try again.'});
-        }
-
-        const { _id,  username } = user;
-
-        const token = generateToken({
-            user: { 
-                _id, username, email
-            }
-        });
+        await dispenser.save();
 
         return res.status(200).json({
             success: true,
-            message: "Login successful",
-            token
+            message: "Dispenser created successfully",
+            dispenser
         })
+    } catch (error) {
+        if (error.code === 11000 && error.keyPattern && error.keyPattern.serialNumber) {
+            return res.status(400).json({ message: "Serial Number already exists" });
+        }
+        if (error.name === 'ValidationError' && error.errors && error.errors.drugType) {
+            return res.status(400).json({ message: "Provided Drug type is not supported. Please select a supported type." });
+        } 
+      console.log(error)
+      res.status(500).json(error);
+  }
+};
 
+exports.getAll = async (req, res) => {
+    try {
+        const dispensers = await Dispenser.find();
+        return res.status(200).json({
+            success: true,
+            message: "Dispensers found",
+            dispensers,
+            count: dispensers.length
+        });
     } catch (error) {
       console.log(error)
       res.status(500).json(error);
@@ -53,3 +41,18 @@ exports.login = async (req, res) => {
 };
 
 
+exports.search = async (req, res) => {
+    try {
+        const { layers, drugType } = req.query;
+        const dispensers = await Dispenser.find({ layers, drugType });
+        return res.status(200).json({
+            success: true,
+            message: "Dispensers found",
+            dispensers,
+            count: dispensers.length
+        });
+    } catch (error) {
+      console.log(error)
+      res.status(500).json(error);
+  }
+};
