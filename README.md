@@ -1,3 +1,3 @@
 ### DoseGuardian
 
-DoseGuardian is an innovative IoT drug dispensing system designed to revolutionize medication management. With DoseGuardian, users can experience enhanced medication adherence, precise dosing accuracy, and remote monitoring and control capabilities. Our system provides real-time alerts and notifications, ensuring users never miss a dose and caregivers can stay informed. Developed with a focus on user safety and convenience, DoseGuardian aims to streamline medication routines and improve overall healthcare outcomes.
+DoseGuardian is a smart system that helps you manage your medication easily. It's like having a personal assistant for your pills! With DoseGuardian, you can rest assured that you're taking the right dose at the right time. It not only dispenses your medication automatically but also makes sure that each dose is accurate down to the last pill. Plus, it sends you friendly reminders and alerts so you never miss a dose.
