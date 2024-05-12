@@ -30,6 +30,5 @@ const PrescriptionSchema = new Schema(
     }
 );
 
-const PrescriptionModel = model('Prescription', PrescriptionSchema);
 
-module.exports = PrescriptionModel;
+module.exports = model('Prescription', PrescriptionSchema);
