@@ -1,0 +1,487 @@
+{
+	"info": {
+		"_postman_id": "32e96d0c-04b8-4c3f-a687-9b690e8f361f",
+		"name": "DoseGuardian",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17701170"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Create an account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Joe\",\r\n    \"email\": \"joe@gmail.com\",\r\n    \"password\": \"JoeDaniel\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/register",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)\r",
+									"postman.setGlobalVariable(\"BearerToken\", jsonData.token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"joe@gmail.com\",\r\n    \"password\": \"JoeDaniel\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody)\r",
+									"postman.setGlobalVariable(\"BearerToken\", jsonData.token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/logout",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dispenser",
+			"item": [
+				{
+					"name": "Create Dispenser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"serialNumber\": \"DIS103\",\r\n    \"layers\": 3,\r\n    \"drugType\": \"tablet\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/dispenser",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dispenser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Dispensers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/dispensers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dispensers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Dispensers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/dispensers/search?layers=3&drugType=tablet",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dispensers",
+								"search"
+							],
+							"query": [
+								{
+									"key": "layers",
+									"value": "3"
+								},
+								{
+									"key": "drugType",
+									"value": "tablet"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Prescription",
+			"item": [
+				{
+					"name": "Create Prescription",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"medications\": [\r\n    {\r\n      \"name\": \"Aspirin\",\r\n      \"dosage\": 1,\r\n      \"interval\": 8\r\n    },\r\n    {\r\n      \"name\": \"Ibuprofen\",\r\n      \"dosage\": 2,\r\n      \"interval\": 6\r\n    },\r\n    {\r\n      \"name\": \"Lisinopril\",\r\n      \"dosage\": 1,\r\n      \"interval\": 12\r\n    }\r\n  ],\r\n  \"duration\": 7,\r\n  \"alertMessage\": \"Time for your medications.\",\r\n  \"contact\": {\r\n    \"phoneNumber\": \"123-456-7890\",\r\n    \"email\": \"example@gmail.com\"\r\n  },\r\n  \"dispenserSerialNumber\": \"DIS103\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/prescription",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"prescription"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Prescription",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/prescription/6641269823345cecb498cb0d",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"prescription",
+								"6641269823345cecb498cb0d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Prescriptions",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/prescriptions",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"prescriptions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Prescription",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/prescription/6641269823345cecb498cb0d",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"prescription",
+								"6641269823345cecb498cb0d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Arduino Endpoints",
+			"item": [
+				{
+					"name": "Get All Prescription for a Dispenser using its Serial Number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/dispenser-prescription/DIS103",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"dispenser-prescription",
+								"DIS103"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}",
+					"host": [
+						"{{host}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{BearerToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:6000",
+			"type": "string"
+		}
+	]
+}
