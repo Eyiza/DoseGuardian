@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 require('dotenv').config()
 
 async function connect() {
-    const mongoDBURI = `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASS}@${process.env.MONGO_DB_NAME}.bpmm9a4.mongodb.net/`
-    
+    const mongoDBURI = `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASS}@cluster0.svclwic.mongodb.net/`
     mongoose.connect(mongoDBURI);
 
     const db = mongoose.connection;

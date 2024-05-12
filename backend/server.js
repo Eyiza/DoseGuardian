@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 app.use(routes);
 
 //:::::: Connect to MongoDB
-const connect = require('./config/mongodb');
+const connect = require('./config/database');
 connect();
 
 const port = process.env.PORT || 6000;
