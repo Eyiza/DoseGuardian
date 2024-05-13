@@ -48,7 +48,7 @@ function Login() {
         <CardFooter className="flex flex-col gap-5 md:flex-row justify-between">
         <Button>Log In</Button>
         <Link href={'/Register'}>
-            <Button variant="outline" >Don't have an account? Register</Button>
+            <Button variant="outline" >Don&apos;t have an account? Register</Button>
         </Link>
         
         </CardFooter>
