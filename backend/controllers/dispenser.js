@@ -44,7 +44,11 @@ exports.getAll = async (req, res) => {
 exports.search = async (req, res) => {
     try {
         const { layers, drugType } = req.query;
-        const dispensers = await Dispenser.find({ layers, drugType });
+        const dispensers = await Dispenser.find({ layers, drugType, available: true});
+
+        if (dispensers.length === 0) {
+            return res.status(404).json({ success: false, message: "No dispensers available for provided description" });
+        }
         return res.status(200).json({
             success: true,
             message: "Dispensers found",
