@@ -14,6 +14,9 @@ function PrescriptionDetails() {
           const response = await fetch(`https://doseguardianapi.onrender.com/prescriptions`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+            next: {
+                revalidate: 60 * 60 * 24 // 1 day
+              }
           })
           const data = await response.json()
           setPrescription(data.prescriptions)

@@ -126,7 +126,7 @@ function Prescription() {
           <><div className="grid w-full items-center gap-4">
           <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name" className="text-black text-lg">Dispenser Serial Number</Label>
-              <Select value={SelectedSerialNumber} onValueChange={handleSelectedSerialNumber}>
+              {SerialNumber?.length>0?(<Select value={SelectedSerialNumber} onValueChange={handleSelectedSerialNumber}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select" />
                   </SelectTrigger>
@@ -138,7 +138,8 @@ function Prescription() {
                       ))}
                     </SelectGroup>
                   </SelectContent>
-               </Select>
+               </Select>):(<p className=''>We do not have a Dispenser.Please go back and  select again</p>)}
+              
           </div>
           </div>
           
