@@ -5,6 +5,11 @@ exports.create = async (req, res) => {
     try {
         const { medications, duration, alertMessage, contact, dispenserSerialNumber } = req.body;
 
+        // Check if dispenser exists and is available
+        const dispenser = await Dispenser.findOne({ serialNumber: dispenserSerialNumber });
+        if (!dispenser) return res.status(404).json({ success: false, message: "Dispenser not found" });
+        if (!dispenser.available) return res.status(400).json({ success: false, message: "Dispenser is not available" });
+
         const prescription = new Prescription({
           user: req.userData.user._id,
           medications,
@@ -15,6 +20,9 @@ exports.create = async (req, res) => {
         });
 
         await prescription.save();
+
+        // Update dispenser status
+        await Dispenser.findOneAndUpdate({ serialNumber: dispenserSerialNumber }, { available: false });
 
         return res.status(200).json({
             success: true,
@@ -58,42 +66,22 @@ exports.getbyId = async (req, res) => {
   }
 };
 
-exports.getInstructionsForDispenser = async (req, res) => {
-  try {
-    const serialNumber = req.params.serialNumber;
-
-    const dispenser = await Dispenser.findOne({serialNumber});
-    if (!dispenser) {
-      return res.status(404).json({ error: 'Dispenser not found' });
-    }
-
-    const prescription = await Prescription.findOne({dispenserSerialNumber: serialNumber});
-
-    if (!prescription) return res.status(200).json({ success: true, message: "No active prescription found for this dispenser" });
-
-    return res.status(200).json({
-      success: true,
-      message: "Prescription found",
-      prescription
-      });
-      
-  } catch (error) {
-    console.log(error)
-    res.status(500).json(error);
-  }
-};
-
-exports.delete = async (req, res) => {
+exports.deactivate = async (req, res) => {
   try {
     const { id } = req.params;
-    const prescription = await Prescription.findByIdAndDelete(id);
+    
+    const prescription = await Prescription.findById(id);
+    if (!prescription) return res.status(404).json({ success: false, message: "Prescription not found" });
 
-    if (!prescription) {
-      return res.status(400).json({ message: "Prescription Not Found!" });
-    }
+    prescription.active = false;
+    await prescription.save();
+
+    // Update dispenser status
+    await Dispenser.findOneAndUpdate({ serialNumber: prescription.dispenserSerialNumber }, { available: true });
+    
     return res.status(200).json({
       success: true,
-      message: "Prescription deleted successfully",
+      message: "Prescription deactivated successfully",
     });
 
   } catch (error) {
