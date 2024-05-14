@@ -24,9 +24,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/register",
+							"raw": "{{base_url}}/register",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"register"
@@ -63,9 +63,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/login",
+							"raw": "{{base_url}}/login",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"login"
@@ -93,9 +93,9 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/logout",
+							"raw": "{{base_url}}/logout",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"logout"
@@ -124,9 +124,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/dispenser",
+							"raw": "{{base_url}}/dispenser",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"dispenser"
@@ -165,9 +165,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/dispensers",
+							"raw": "{{base_url}}/dispensers",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"dispensers"
@@ -206,9 +206,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/dispensers/search?layers=3&drugType=tablet",
+							"raw": "{{base_url}}/dispensers/search?layers=3&drugType=tablet",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"dispensers",
@@ -240,7 +240,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"medications\": [\r\n    {\r\n      \"name\": \"Aspirin\",\r\n      \"dosage\": 1,\r\n      \"interval\": 8\r\n    },\r\n    {\r\n      \"name\": \"Ibuprofen\",\r\n      \"dosage\": 2,\r\n      \"interval\": 6\r\n    },\r\n    {\r\n      \"name\": \"Lisinopril\",\r\n      \"dosage\": 1,\r\n      \"interval\": 12\r\n    }\r\n  ],\r\n  \"duration\": 7,\r\n  \"alertMessage\": \"Time for your medications.\",\r\n  \"contact\": {\r\n    \"phoneNumber\": \"123-456-7890\",\r\n    \"email\": \"example@gmail.com\"\r\n  },\r\n  \"dispenserSerialNumber\": \"DIS103\"\r\n}\r\n",
+							"raw": "{\r\n  \"medications\": [\r\n    {\r\n      \"name\": \"Aspirin\",\r\n      \"dosage\": 1,\r\n      \"interval\": 8\r\n    },\r\n    {\r\n      \"name\": \"Ibuprofen\",\r\n      \"dosage\": 2,\r\n      \"interval\": 6\r\n    },\r\n    {\r\n      \"name\": \"Lisinopril\",\r\n      \"dosage\": 1,\r\n      \"interval\": 12\r\n    }\r\n  ],\r\n  \"duration\": 7,\r\n  \"alertMessage\": \"Time for your medications.\",\r\n  \"contact\": {\r\n    \"phoneNumber\": \"123-456-7890\",\r\n    \"email\": \"joe@mailinator.com\"\r\n  },\r\n  \"dispenserSerialNumber\": \"DIS103\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -248,9 +248,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/prescription",
+							"raw": "{{base_url}}/prescription",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"prescription"
@@ -289,9 +289,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/prescription/6641269823345cecb498cb0d",
+							"raw": "{{base_url}}/prescription/6641269823345cecb498cb0d",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"prescription",
@@ -331,9 +331,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/prescriptions",
+							"raw": "{{base_url}}/prescriptions",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"prescriptions"
@@ -343,7 +343,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete Prescription",
+					"name": "Deactivate Prescription",
 					"event": [
 						{
 							"listen": "test",
@@ -369,13 +369,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/prescription/6641269823345cecb498cb0d",
+							"raw": "{{base_url}}/prescription/66434c7c125463dbd5603d92",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"prescription",
-								"6641269823345cecb498cb0d"
+								"66434c7c125463dbd5603d92"
 							]
 						}
 					},
@@ -416,12 +416,54 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/dispenser-prescription/DIS103",
+							"raw": "{{base_url}}/dispenser-prescription/DIS103",
 							"host": [
-								"{{host}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"dispenser-prescription",
+								"DIS103"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send Email Reminder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/reminder/DIS103",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"reminder",
 								"DIS103"
 							]
 						}
@@ -436,9 +478,9 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}",
+					"raw": "{{base_url}}",
 					"host": [
-						"{{host}}"
+						"{{base_url}}"
 					]
 				}
 			},

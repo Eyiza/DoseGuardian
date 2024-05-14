@@ -40,7 +40,7 @@ exports.sendReminder = async (req, res) => {
           return res.status(404).json({ error: 'Dispenser not found' });
         }
 
-        const prescription = await Prescription.findOne({dispenserSerialNumber: serialNumber});
+        const prescription = await Prescription.findOne({dispenserSerialNumber: serialNumber, status: "active"});
         if (!prescription) return res.status(404).json({ success: false, message: "No active prescription found for this dispenser" });
 
         const { medications, contact: {email} } = prescription;
