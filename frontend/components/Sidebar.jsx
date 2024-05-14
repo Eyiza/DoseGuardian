@@ -33,20 +33,19 @@ function Sidebar() {
     <div className='p-2 pt-10 flex flex-col h-screen text-white'>
         <h1 className='text-2xl cursor-pointer font-bold text-center'>DoseGuardian</h1>
 
-        <div className='flex flex-col justify-between items-center'>
+        <div className='flex flex-col items-center h-screen'>
             <div className='flex-1'>
             <ul className='flex flex-col items-center justify-center gap-5 mt-10'>
                 <Link href={`/Dashboard`}>
                 <li className='text-base font-semibold cursor-pointer hover:underline'>Home</li>
                 </Link>
-            
-        
+
             <li className='text-base font-semibold cursor-pointer hover:underline'>Prescription</li>
             <Link href={`/Dashboard/Account`}><li className='text-base font-semibold cursor-pointer hover:underline'>Account</li></Link>
             </ul>
         </div>
         
-        <div className='mt-80'>
+        <div className=''>
         <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="destructive">Log out</Button>

@@ -8,12 +8,14 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
+    const [loading, setisloading] = useState(true);
     const router = useRouter()
     useEffect(() => {
       const token = Cookies.get('user')
         if (token){
             const userDecode = jwt.decode(token)
             setUser(userDecode)
+            setisloading(false)
         }
         else{
             router.push('/')
@@ -32,7 +34,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

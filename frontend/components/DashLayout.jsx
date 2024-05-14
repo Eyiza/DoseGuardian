@@ -5,7 +5,7 @@ import { useAuth } from '@/lib/userContext';
 import Login from './Login';
 
 function DashLayout({children}) {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   return (
     <>
     {user && (

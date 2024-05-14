@@ -13,6 +13,15 @@ import { Button } from './ui/button';
 import Account from './Dashboard/Account';
 import Prescription from './Dashboard/Prescription';
 import { useRouter } from 'next/navigation';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 
 function Dashboard() {
@@ -58,7 +67,19 @@ function Dashboard() {
       
       </CardContent>
       <CardFooter>
-        <Button>Create a new prescription</Button>
+        <Dialog>
+      <DialogTrigger asChild>
+      <Button>Create a new prescription</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px] h-[450px]">
+        <DialogHeader>
+          <DialogTitle>Create a Prescription</DialogTitle>
+          <DialogDescription>
+           <Prescription/>
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
       </CardFooter>
     </Card>
     )}
