@@ -12,13 +12,16 @@ import {
 import { Button } from './ui/button';
 import Account from './Dashboard/Account';
 import Prescription from './Dashboard/Prescription';
+import { useRouter } from 'next/navigation';
+
 
 function Dashboard() {
     const { user } = useAuth();
-    console.log(user)
+    const router = useRouter()
   return (
-    <div className='flex items-center justify-center mt-20'>
-            <Tabs defaultValue="home" className="w-[400px]">
+    <div className=''>
+
+            {/* <Tabs defaultValue="home" className="w-[400px]">
       <TabsList className="grid w-full gap-10 grid-cols-3 px-10">
       <TabsTrigger value="home">Home</TabsTrigger>
         <TabsTrigger value="account">Account</TabsTrigger>
@@ -43,7 +46,23 @@ function Dashboard() {
           </CardFooter>
         </Card>
       </TabsContent>
-    </Tabs>
+    </Tabs> */}
+
+    {user &&(
+      <Card className="h-[100vh] pt-10" >
+      <CardHeader>
+        <CardTitle>Welcome, {user?.user.username}</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-2">
+      Hello and welcome to DoseGuide, your trusted companion for personalized dosage guidance and medication management. We&apos;re dedicated to ensuring you have the most accurate and up-to-date information for managing your prescriptions safely and effectively.
+      
+      </CardContent>
+      <CardFooter>
+        <Button>Create a new prescription</Button>
+      </CardFooter>
+    </Card>
+    )}
+    
     </div>
   )
 }

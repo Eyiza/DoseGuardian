@@ -15,9 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
 
-      <nav>
-        <h1 className="text-2xl cursor-pointer font-bold">Dose<span className="text-muted-foreground">Guardian</span></h1>
-      </nav>
+   
 
       <AuthProvider>
         {children}

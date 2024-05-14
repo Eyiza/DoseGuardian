@@ -1,11 +1,11 @@
-
-
 import DashLayout from '@/components/DashLayout'
-import Dashboard from '@/components/Dashboard'
+import Account from '@/components/Dashboard/Account'
+import React from 'react'
+
 function page() {
   return (
     <DashLayout>
-      <Dashboard/>
+        <Account/>
     </DashLayout>
   )
 }
