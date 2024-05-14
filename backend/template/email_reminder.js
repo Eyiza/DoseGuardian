@@ -1,4 +1,12 @@
-const reminderEmailTemplate = function (medicationName, dosage, interval) {
+const reminderEmailTemplate = function (medications) {
+
+    const medicationList = medications.map(medication => `
+    <li>
+      <strong>Name:</strong> ${medication.name}<br>
+      <strong>Dosage:</strong> ${medication.dosage}<br>
+      <strong>Interval:</strong> Every ${medication.interval} hours
+    </li>`).join('');
+
     const html = `
       <html>
       <head>
@@ -45,12 +53,8 @@ const reminderEmailTemplate = function (medicationName, dosage, interval) {
               </div>
               <div class="content">
                   <p>Dear Patient,</p>
-                  <p>This is a reminder to take your medication:</p>
-                  <ul>
-                      <li><strong>Medication Name:</strong> ${medicationName}</li>
-                      <li><strong>Dosage:</strong> ${dosage}</li>
-                      <li><strong>Interval:</strong> Every ${interval} hours</li>
-                  </ul>
+                  <p>This is a reminder to take your medication. Here is your medication schedule:</p>
+                  <ul>${medicationList}</ul>
                   <p>Please ensure you follow the prescribed dosage and schedule. If you have any questions, feel free to contact your healthcare provider.</p>
                   <p>Stay healthy!</p>
               </div>
@@ -65,11 +69,10 @@ const reminderEmailTemplate = function (medicationName, dosage, interval) {
     const text = `
       Dear Patient,
   
-      This is a reminder to take your medication:
-  
-      Medication Name: ${medicationName}
-      Dosage: ${dosage}
-      Interval: Every ${interval} hours
+      This is a reminder to take your medication.  Here is your medication schedule:
+      ${medications.map(medication => `
+        - Medication Name: ${medication.name}, Dosage: ${medication.dosage}, Interval: Every ${medication.interval} hours
+      `).join('\n')}
   
       Please ensure you follow the prescribed dosage and schedule. If you have any questions, feel free to contact your healthcare provider.
   

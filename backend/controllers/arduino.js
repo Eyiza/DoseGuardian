@@ -2,7 +2,7 @@ const Prescription = require('../models/prescription');
 const Dispenser = require('../models/dispenser');
 const { mailService } = require('../middleware/mailService');
 const reminderEmailTemplate = require('../template/email_reminder');
-
+const { smsService } = require('../middleware/smsService');
 
 
 exports.getInstructionsForDispenser = async (req, res) => {
@@ -40,15 +40,16 @@ exports.sendReminder = async (req, res) => {
           return res.status(404).json({ error: 'Dispenser not found' });
         }
 
-        const prescription = await Prescription.findOne({dispenserSerialNumber: serialNumber, status: "active"});
+        const prescription = await Prescription.findOne({dispenserSerialNumber: serialNumber, active: true});
         if (!prescription) return res.status(404).json({ success: false, message: "No active prescription found for this dispenser" });
 
-        const { medications, contact: {email} } = prescription;
-        const { name: medicationName, dosage, interval } = medications[0];
+        const { medications, contact: {email, phoneNumber} } = prescription;
         
-        const emailTemplate = reminderEmailTemplate(medicationName, dosage, interval);
+        const emailTemplate = reminderEmailTemplate(medications);
+        const smsBody = `Hello There! \nThis is a reminder to take your medications. Please check your email for more details.`;
 
-        mailService(process.env.EMAILUSER, email, emailTemplate.subject, emailTemplate.text, emailTemplate.html);
+        await mailService(process.env.EMAILUSER, email, emailTemplate.subject, emailTemplate.text, emailTemplate.html);
+        await smsService(phoneNumber, smsBody);
 
         return res.status(200).json({
           success: true,
