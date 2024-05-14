@@ -7,7 +7,7 @@ function Prescription() {
     <div>
       <Card >
           <CardContent className="space-y-2 mt-4">
-          Hi there! You don't have any prescription pleae click on the button to create a prescription
+          Hi there! You don&apos;t have any prescription pleae click on the button to create a prescription
           </CardContent>
           <CardFooter>
             <Button>Create a new prescription</Button>

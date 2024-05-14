@@ -74,11 +74,9 @@ function Login() {
         <Link href={'/Register'}>
             <Button variant="outline" >Don&apos;t have an account? Register</Button>
         </Link>
-        
         </div>
         </form>
         </CardContent>
-        
     </Card>
     </div>
     

@@ -14,7 +14,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "../ui/alert-dialog"
-import { redirect, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import Cookies from "js-cookie"
 import { useAuth } from "@/lib/userContext"
 
@@ -49,7 +49,7 @@ function Account() {
           <CardHeader>
             <CardTitle>Account</CardTitle>
             <CardDescription>
-              Make changes to your account here. Click save when you're done.
+              Make changes to your account here. Click save when you&apos;re done.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
@@ -76,7 +76,7 @@ function Account() {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            Please don't log out stay and enjoy our service 
+            Please don&apos;t log out stay and enjoy our service 
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

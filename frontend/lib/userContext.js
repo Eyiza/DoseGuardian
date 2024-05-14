@@ -18,7 +18,7 @@ export function AuthProvider({ children }) {
         else{
             router.push('/')
         }
-    }, [])
+    }, [router])
     
     
   const login = (userData) => {

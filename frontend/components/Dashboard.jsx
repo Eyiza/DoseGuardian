@@ -1,7 +1,5 @@
 'use client'
 import { useAuth } from '@/lib/userContext';
-import { useEffect } from 'react';
-import { toast } from "sonner"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
     Card,
@@ -11,13 +9,9 @@ import {
     CardHeader,
     CardTitle,
   } from "@/components/ui/card"
-  import { Input } from "@/components/ui/input"
-  import { Label } from "@/components/ui/label"
 import { Button } from './ui/button';
 import Account from './Dashboard/Account';
 import Prescription from './Dashboard/Prescription';
-
-
 
 function Dashboard() {
     const { user } = useAuth();
@@ -42,7 +36,7 @@ function Dashboard() {
             <CardTitle>Welcome, {user?.user.username}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
-          Hi there! DoseGuardian is here to be your medication sidekick. We'll help you stay on top of your meds and make managing your health a breeze. Welcome aboard!
+          Hi there! DoseGuardian is here to be your medication sidekick. We&apos;ll help you stay on top of your meds and make managing your health a breeze. Welcome aboard!
           </CardContent>
           <CardFooter>
             <Button>Create a new prescription</Button>
