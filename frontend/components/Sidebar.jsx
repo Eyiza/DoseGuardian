@@ -40,7 +40,8 @@ function Sidebar() {
                 <li className='text-base font-semibold cursor-pointer hover:underline'>Home</li>
                 </Link>
 
-            <li className='text-base font-semibold cursor-pointer hover:underline'>Prescription</li>
+              <Link href={`/Dashboard/Prescription`}><li className='text-base font-semibold cursor-pointer hover:underline'>Prescription</li></Link>
+            
             <Link href={`/Dashboard/Account`}><li className='text-base font-semibold cursor-pointer hover:underline'>Account</li></Link>
             </ul>
         </div>
