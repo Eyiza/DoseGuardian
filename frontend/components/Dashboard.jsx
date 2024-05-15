@@ -75,7 +75,7 @@ function Dashboard() {
       <DialogTrigger asChild>
       <Button>Create new prescription</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] h-[450px]">
+      <DialogContent className="sm:max-w-[500px] h-[450px]">
         <DialogHeader>
           <DialogTitle>Create Prescription</DialogTitle>
           <DialogDescription>
