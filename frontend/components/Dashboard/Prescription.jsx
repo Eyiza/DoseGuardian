@@ -274,8 +274,10 @@ function Prescription() {
       
         {count > 1  && (<Button onClick={handlePrevStep}>Back</Button>)}
 
-        {/* {count == 2 || SerialNumber?.length != 0  && (<Button onClick={handleNextStep}>Next</Button>)} */}
-        {count == 4?<Button >Submit</Button>: (<Button onClick={handleNextStep}>Next</Button>)}
+        {SerialNumber?.length > 0 &&(<Button className={`${count == 4?'hidden':'block'}`} onClick={handleNextStep}>Next</Button>)}
+        
+        {count == 1 &&(<Button className={`${SerialNumber?.length > 0?'hidden':'block'}`} onClick={handleNextStep}>Next</Button>)}
+        {count == 4&&<Button >Submit</Button>}
         
       
       </div>

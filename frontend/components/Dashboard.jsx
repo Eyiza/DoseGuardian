@@ -26,6 +26,7 @@ import {
 import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
 import { Badge } from './ui/badge';
+import PrescriptionDashLoading from './Dashboard/PrescriptionDashLoading';
 
 function Dashboard() {
     const { user } = useAuth();
@@ -86,24 +87,24 @@ function Dashboard() {
     </Dialog>
       </CardFooter>
 
-      <div className="mt-10 mx-10 grid grid-cols-3 gap-5">
-            {loading ?(<PrescriptionLoading/>) : (
-              prescriptions.map((data) => (
-                <Card key={data._id} className="w-[300px] p-4 cursor-pointer">
-                  <CardHeader>
-                    <CardTitle className="whitespace-nowrap">S/N: {data.dispenserSerialNumber}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2">
-                    <p><span>Medication:</span> {data.medications.length}</p>
-                    <p><span>Duration:</span> {data.duration}</p>
-                  </CardContent>
-                  <CardFooter>
-                    <p>Status: {data.active ? (<Badge>Active</Badge>) : (<Badge variant="secondary">Not Active</Badge>)} </p>
-                  </CardFooter>
-                </Card>
-              ))
-            )}
-          </div>
+      {loading?(<PrescriptionDashLoading/>): (
+         <div className='mt-10 mx-10 grid grid-cols-3 gap-5'>
+         {prescriptions?.map((data) => (
+              <Card key={data._id} className="w-[300px] p-4 cursor-pointer">
+              <CardHeader >
+              <CardTitle className="whitespace-nowrap">S/N: {data.dispenserSerialNumber}</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-2">
+            <p><span>Medication:</span> {data.medications.length}</p>
+            <p><span>Duration:</span> {data.duration}</p>
+            </CardContent>
+            <CardFooter>
+            <p>Status: {data.active?(<Badge>Active</Badge>):(<Badge variant="secondary">Not Active</Badge>)} </p>
+            </CardFooter>
+              </Card>
+         ))} 
+     </div>
+    )}
     </Card>
     )}
     
