@@ -80,7 +80,7 @@ function Prescription() {
           <>
             <div className="grid w-full items-center gap-4">
           <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name" className="text-black text-lg">How many drug do you have to use?</Label>
+              <Label htmlFor="name" className="text-black text-lg">Number of Medications</Label>
               <Select  value={NumberofDrugs} onValueChange={handleNumberOfDrug}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select how many drugs" />
@@ -102,7 +102,7 @@ function Prescription() {
   
           <div className="grid w-full items-center gap-4">
           <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name" className="text-black text-lg">What type of drug</Label>
+              <Label htmlFor="name" className="text-black text-lg">Drug Type</Label>
               <Select value={TypeofDrug} onValueChange={handleTypeOfDrug}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Type of Drug" />
@@ -138,7 +138,7 @@ function Prescription() {
                       ))}
                     </SelectGroup>
                   </SelectContent>
-               </Select>):(<p className=''>We do not have a Dispenser.Please go back and  select again</p>)}
+               </Select>):(<p className=''>Dispenser for provided description is not available. Please go back and reselect!</p>)}
               
           </div>
           </div>

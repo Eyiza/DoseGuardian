@@ -12,6 +12,7 @@ import {
 import { Button } from './ui/button';
 import Account from './Dashboard/Account';
 import Prescription from './Dashboard/Prescription';
+import PrescriptionLoading from './Dashboard/PrescriptionLoading'
 import { useRouter } from 'next/navigation';
 import {
   Dialog,
@@ -22,40 +23,42 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-
+import React, { useEffect, useState } from 'react'
+import Cookies from 'js-cookie'
+import { Badge } from './ui/badge';
 
 function Dashboard() {
     const { user } = useAuth();
-    const router = useRouter()
+    const router = useRouter();
+
+    const [prescriptions, setPrescriptions] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchPrescriptions = async () => {
+      const token = Cookies.get('user');
+      try {
+        const response = await fetch('https://doseguardianapi.onrender.com/prescriptions', {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          next: {
+            revalidate: 60 * 60 * 24, // 1 day
+          },
+        });
+        const data = await response.json();
+        const activePrescriptions = data.prescriptions.filter(prescription => prescription.active).slice(0, 3);
+        setPrescriptions(activePrescriptions);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching prescriptions:', error);
+      }
+    };
+  
+    useEffect(() => {
+      fetchPrescriptions();
+    }, []);
+
   return (
     <div className=''>
-
-            {/* <Tabs defaultValue="home" className="w-[400px]">
-      <TabsList className="grid w-full gap-10 grid-cols-3 px-10">
-      <TabsTrigger value="home">Home</TabsTrigger>
-        <TabsTrigger value="account">Account</TabsTrigger>
-        <TabsTrigger className="px-14" value="prescription">Prescription</TabsTrigger>
-      </TabsList>
-      <TabsContent value="account">
-        <Account/>
-      </TabsContent>
-      <TabsContent value="prescription">
-        <Prescription/>
-      </TabsContent>
-      <TabsContent value="home">
-        <Card >
-          <CardHeader>
-            <CardTitle>Welcome, {user?.user.username}</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-          Hi there! DoseGuardian is here to be your medication sidekick. We&apos;ll help you stay on top of your meds and make managing your health a breeze. Welcome aboard!
-          </CardContent>
-          <CardFooter>
-            <Button>Create a new prescription</Button>
-          </CardFooter>
-        </Card>
-      </TabsContent>
-    </Tabs> */}
 
     {user &&(
       <Card className="h-[100vh] pt-10" >
@@ -70,11 +73,11 @@ function Dashboard() {
       <CardFooter>
         <Dialog>
       <DialogTrigger asChild>
-      <Button>Create a new prescription</Button>
+      <Button>Create new prescription</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] h-[450px]">
         <DialogHeader>
-          <DialogTitle>Create a Prescription</DialogTitle>
+          <DialogTitle>Create Prescription</DialogTitle>
           <DialogDescription>
            <Prescription/>
           </DialogDescription>
@@ -82,6 +85,25 @@ function Dashboard() {
       </DialogContent>
     </Dialog>
       </CardFooter>
+
+      <div className="mt-10 mx-10 grid grid-cols-3 gap-5">
+            {loading ?(<PrescriptionLoading/>) : (
+              prescriptions.map((data) => (
+                <Card key={data._id} className="w-[300px] p-4 cursor-pointer">
+                  <CardHeader>
+                    <CardTitle className="whitespace-nowrap">S/N: {data.dispenserSerialNumber}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <p><span>Medication:</span> {data.medications.length}</p>
+                    <p><span>Duration:</span> {data.duration}</p>
+                  </CardContent>
+                  <CardFooter>
+                    <p>Status: {data.active ? (<Badge>Active</Badge>) : (<Badge variant="secondary">Not Active</Badge>)} </p>
+                  </CardFooter>
+                </Card>
+              ))
+            )}
+          </div>
     </Card>
     )}
     

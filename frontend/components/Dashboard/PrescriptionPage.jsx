@@ -13,16 +13,16 @@ function PrescriptionPage() {
         <Card className="h-[100vh] pt-10 " >
             <div className='flex items-center px-5 justify-between border-b-2'>
             <CardHeader>
-        <CardTitle>Prescription</CardTitle>
+        <CardTitle>Prescriptions</CardTitle>
       </CardHeader>
       <div>
       <Dialog>
       <DialogTrigger asChild>
-      <Button>Create a new prescription</Button>
+      <Button>Create new prescription</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] h-[450px]">
         <DialogHeader>
-          <DialogTitle>Create a Prescription</DialogTitle>
+          <DialogTitle>Create Prescription</DialogTitle>
           <DialogDescription>
            <Prescription/>
           </DialogDescription>

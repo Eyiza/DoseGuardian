@@ -8,7 +8,7 @@ import PrescriptionLoading from './PrescriptionLoading'
 function PrescriptionDetails() {
     const [Prescription, setPrescription] = useState([])
     const [Loading, setLoading] = useState(true)
-    const fetchSerial = async () => {
+    const fetchPrescriptions = async () => {
         const token = Cookies.get('user')
         try {
           const response = await fetch(`https://doseguardianapi.onrender.com/prescriptions`, {
@@ -28,7 +28,7 @@ function PrescriptionDetails() {
       }
 
       useEffect(() => {
-        fetchSerial()
+        fetchPrescriptions()
       }, [])
   return (
     <>
