@@ -63,8 +63,9 @@ function Dashboard() {
         <CardTitle>Welcome, {user?.user.username}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-2">
-      Hello and welcome to DoseGuide, your trusted companion for personalized dosage guidance and medication management. We&apos;re dedicated to ensuring you have the most accurate and up-to-date information for managing your prescriptions safely and effectively.
-      
+      Welcome to DoseGuardian, your dedicated partner in medication management! <br/>
+      This platform is designed to make managing medications simple, efficient, and stress-free. Whether it's tracking prescriptions, setting up reminders, or getting detailed information about medications, we've got you covered. <br/>
+      Health is our priority, and we're committed to achieving the best possible outcomes. Welcome aboard!
       </CardContent>
       <CardFooter>
         <Dialog>

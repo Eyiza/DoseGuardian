@@ -27,10 +27,8 @@ function Register() {
     <CardHeader>
     <CardTitle>Register</CardTitle>
     <CardDescription>
-        Embark on your health journey with Dose Guardian by 
-        creating your personalized account. Our registration process
-         is designed with simplicity and security in mind, ensuring
-          a seamless onboarding experience for every new member.</CardDescription>
+        Create an account to access your dashboard and manage your medications.
+    </CardDescription>
     </CardHeader>
     <CardContent>
     <form className="flex flex-col items-center justify-center gap-5">

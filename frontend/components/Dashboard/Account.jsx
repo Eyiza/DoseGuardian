@@ -17,10 +17,10 @@ function Account() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <div className="space-y-1">
+            {/* <div className="space-y-1">
               <Label htmlFor="name">Name</Label>
               <Input id="name" placeholder="timmy Asha" />
-            </div>
+            </div> */}
             <div className="space-y-1">
               <Label htmlFor="username">Username</Label>
               <Input id="username" defaultValue={user?.user.username} />
