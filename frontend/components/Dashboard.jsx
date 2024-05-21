@@ -42,7 +42,7 @@ function Dashboard() {
           method: 'GET',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
           next: {
-            revalidate: 60 * 60 * 24, // 1 day
+            revalidate: 60 * 60, //  1hr
           },
         });
         const data = await response.json();
@@ -76,7 +76,7 @@ function Dashboard() {
       <DialogTrigger asChild>
       <Button>Create new prescription</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[500px] h-[450px]">
+      <DialogContent className="sm:max-w-[500px] h-[550px]">
         <DialogHeader>
           <DialogTitle>Create Prescription</DialogTitle>
           <DialogDescription>

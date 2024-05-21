@@ -14,9 +14,12 @@ import {
 import { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
 import { ScrollArea } from '../ui/scroll-area'
+import SerialLoading from './SerialLoading'
+import { useRouter } from 'next/navigation'
 
 
 function Prescription() {
+  const router = useRouter()
   const [count, setcount] = useState(1)
   const [NumberofDrugs, setNumberofDrugs] = useState(1)
   const [TypeofDrug, setTypeofDrug] = useState('tablet')
@@ -34,6 +37,8 @@ function Prescription() {
 
   const [fields, setFields] = useState([]); // Initial fields
   const [visibleGroups, setVisibleGroups] = useState([true]);
+
+  const [loading , setisLoading] = useState(true)
 
   const newVisibleGroups = NumberofDrugs.length / 3 > visibleGroups.length
       ? [...visibleGroups, false]
@@ -60,12 +65,15 @@ function Prescription() {
 
   const handleNumberField = () => {
     if (NumberofDrugs === 1) {
-      setFields(['', '', '']);
+      setFields([{name: "", dosage:0, interval: 0}]);
     } else if (NumberofDrugs === 2) {
-      setFields(['', '', '', '', '', '']);
+      setFields([{name: "", dosage:0, interval: 0}, {name: "", dosage:0, interval: 0}]);
     }
     else if (NumberofDrugs === 3) {
-      setFields(['', '', '', '', '', '', '', '', '',]);
+      setFields([{name: "", dosage:0, interval: 0},{name: "", dosage:0, interval: 0},{name: "", dosage:0, interval: 0}]);
+    }
+    else if (NumberofDrugs === 4) {
+      setFields([{name: "", dosage:0, interval: 0}, {name: "", dosage:0, interval: 0}, {name: "", dosage:0, interval: 0}, {name: "", dosage:0, interval: 0}]);
     }
     setVisibleGroups(newVisibleGroups);
   }
@@ -77,14 +85,12 @@ function Prescription() {
   };
 
   
-  const handleFieldChange = (index, e) => {
+  const handleFieldChange = (index,field, value) => {
     const newFields = [...fields];
-    newFields[index] = e.target.value;
-    setFields(newFields);
-  
-    
+    newFields[index][field] = value;
+    setFields(newFields);    
   };
-  console.log(fields)
+  
 
   const chunkArray = (array, size) => {
     const chunkedArr = [];
@@ -93,6 +99,34 @@ function Prescription() {
     }
     return chunkedArr;
   };
+
+  const handleSubmit = async () => {
+    const token = Cookies.get('user')
+    const payload = fields.map(item => ({
+      name: item.name,
+      dosage: item.dosage,
+      interval: item.interval
+  }));
+    const contact = {
+      email,
+      PhoneNum
+    }
+    try {
+      const response = await fetch(`https://doseguardianapi.onrender.com/prescription`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body:  JSON.stringify({medications: payload, duration: Duration, dispenserSerialNumber: SelectedSerialNumber, contact})
+      })
+      const data = await response.json()
+      if(data.success){
+        router.push('Dashboard/Prescription')
+      }
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
 
   // useEffect(() => {
   //   if(count === 2){
@@ -115,6 +149,7 @@ function Prescription() {
   // }, [])
   const fetchSerial = async () => {
     const token = Cookies.get('user')
+    setisLoading(true)
     try {
       const response = await fetch(`https://doseguardianapi.onrender.com/dispensers/search?layers=${NumberofDrugs}&drugType=${TypeofDrug}`, {
         method: 'GET',
@@ -122,6 +157,7 @@ function Prescription() {
       })
       const data = await response.json()
       setSerialNumber(data.dispensers)
+      setisLoading(false)
       console.log(SerialNumber)
     } catch (error) {
       console.log(error)
@@ -180,6 +216,8 @@ function Prescription() {
         {count == 2 && (
           <><div className="grid w-full items-center gap-4">
           <div className="flex flex-col space-y-1.5">
+            {loading?(<SerialLoading/>): (
+              <>
               <Label htmlFor="name" className="text-black text-lg">Dispenser Serial Number</Label>
               {SerialNumber?.length>0?(<Select value={SelectedSerialNumber} onValueChange={handleSelectedSerialNumber}>
                   <SelectTrigger className="w-full">
@@ -194,6 +232,9 @@ function Prescription() {
                     </SelectGroup>
                   </SelectContent>
                </Select>):(<p className=''>Dispenser for provided description is not available. Please go back and reselect!</p>)}
+              </>
+            )}
+              
               
           </div>
           </div>
@@ -203,7 +244,7 @@ function Prescription() {
                 {count == 3 && (
           <>
           <p>Details of Medications</p>
-            <ScrollArea className="h-64">
+            <ScrollArea className="h-64 w-[350px]">
             {chunkArray(fields, 3).map((chunk, chunkIndex) => (
   <div key={chunkIndex} className="field-group" style={{ marginBottom: '20px' }}>
     <button type='button' className='w-full text-white bg-gray-800 rounded-2xl p-3' onClick={() => toggleVisibility(chunkIndex)}>
@@ -211,38 +252,39 @@ function Prescription() {
     </button>
     {visibleGroups[chunkIndex] && (
       <ScrollArea >
-        {chunk.map((field, index) => {
-          const fieldTypes = ['Name', 'Interval', 'Dosage'];
-          return (
-            <div key={index} style={{ marginBottom: '10px' }}>
-             
-              <label>
-                <p className='my-2'> {fieldTypes[index % 3]}:</p>
-               
-                <input
-                  type="text"
-                  name={`${fieldTypes[index % 3]}`}
-                  className="InputClass "
-                  value={fields[index]}
-                  onChange={(e) => handleFieldChange(chunkIndex * 3 + index, e)}
-                  placeholder={`Enter ${fieldTypes[index % 3]}`}
-                />
-              </label>
-            </div>
-          );
-        })}
+          {chunk.map((item, index) => (
+                <div key={index} className='mb-10 mt-5'>
+                  <p className='mb-2'>Medication: {index + 1}</p>
+                    <input
+                        type="text"
+                        placeholder="Name"
+                        value={item.name}
+                        onChange={(e) => handleFieldChange(index, 'name', e.target.value, 10)}
+                        className='InputClass mb-2'
+                    />
+                    <input
+                        type="number"
+                        placeholder="Dosage"
+                        value={item.dosage}
+                        onChange={(e) => handleFieldChange(index, 'dosage', parseInt(e.target.value, 10))}
+                        className='InputClass mb-2'
+                    />
+                    <input
+                        type="number"
+                        placeholder="Interval"
+                        value={item.interval}
+                        onChange={(e) => handleFieldChange(index, 'interval', parseInt(e.target.value, 10))}
+                        className='InputClass '
+                    />
+                    <hr/>
+                </div>
+            ))}
       </ScrollArea>
     )}
   </div>
 ))}
-            </ScrollArea>
-          
-          </>
-        )}
 
-
-{count == 4 && (
-          <>
+<>
           <div className="grid w-full items-center gap-4">
           <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name" className="text-black text-lg">Duration</Label>
@@ -266,6 +308,11 @@ function Prescription() {
           </div>
           </div>
           </>
+
+
+            </ScrollArea>
+          
+          </>
         )}
         </div>
       
@@ -274,10 +321,10 @@ function Prescription() {
       
         {count > 1  && (<Button onClick={handlePrevStep}>Back</Button>)}
 
-        {SerialNumber?.length > 0 &&(<Button className={`${count == 4?'hidden':'block'}`} onClick={handleNextStep}>Next</Button>)}
+        {SerialNumber?.length > 0 &&(<Button className={`${count == 3?'hidden':'block'}`} onClick={handleNextStep}>Next</Button>)}
         
         {count == 1 &&(<Button className={`${SerialNumber?.length > 0?'hidden':'block'}`} onClick={handleNextStep}>Next</Button>)}
-        {count == 4&&<Button >Submit</Button>}
+        {count == 3&&<Button onClick={handleSubmit} >Submit</Button>}
         
       
       </div>
