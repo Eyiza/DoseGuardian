@@ -252,7 +252,7 @@ function Prescription() {
                 {count == 3 && (
           <>
           <p>Details of Medications</p>
-            <ScrollArea className="h-64 w-[350px]">
+            <ScrollArea className="h-64">
             {chunkArray(fields, 3).map((chunk, chunkIndex) => (
   <div key={chunkIndex} className="field-group" style={{ marginBottom: '20px' }}>
     <button type='button' className='w-full text-white bg-gray-800 rounded-2xl p-3' onClick={() => toggleVisibility(chunkIndex)}>
