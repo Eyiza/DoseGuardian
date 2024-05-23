@@ -3,9 +3,14 @@ import React from 'react'
 import Sidebar from './Sidebar'
 import { useAuth } from '@/lib/userContext';
 import Login from './Login';
+import { useRouter } from 'next/navigation';
 
 function DashLayout({children}) {
   const { user, loading } = useAuth();
+  const router = useRouter()
+  if(!user && !loading){
+    router.push("/")
+  }
   return (
     <>
     {user && (

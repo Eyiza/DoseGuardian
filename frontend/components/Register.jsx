@@ -30,7 +30,6 @@ function Register() {
 
           const data = await response.json();
           if (data.success) {
-            
             Swal.fire({
               icon: 'success',
               title: 'Account Successful',
