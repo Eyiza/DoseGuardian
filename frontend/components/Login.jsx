@@ -18,7 +18,7 @@ import Swal from 'sweetalert2';
 import { RotatingLines } from 'react-loader-spinner';
 import jwt from 'jsonwebtoken';
 
-import LoginBanner from '../public/DoseLoginIMage.webp'
+import LoginBanner from '../public/Image.jpeg'
 import Image from 'next/image';
 
 function Login() {
@@ -76,15 +76,17 @@ function Login() {
 
   return (
     <div className="flex items-center justify-center gap-10 mt-20">
-    <div className='relative'>
-    <Image src={LoginBanner} alt='Login' className='h-[80vh] w-[500px] object-left rounded-2xl object-cover'/>
-    </div>
-      <Card className="md:w-[400px]">
-        <CardHeader>
-          <CardTitle className="flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
+    <div className='relative border rounded-md shadow-md'>
+    <div className="flex items-center justify-center font-semibold text-2xl mt-5"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
 </svg>
-DOSE GUARDIAN</CardTitle>
+<h1>DOSE GUARDIAN</h1>
+</div>
+    <Image src={LoginBanner} alt='Login' className='h-[70vh]  w-[500px] object-left rounded-2xl object-cover'/>
+    </div>
+      <Card className="md:w-[400px] border-none">
+        <CardHeader>
+        <CardTitle>Log In</CardTitle>
           <CardDescription>
             Welcome back! Log in to your account to access your dashboard
           </CardDescription>
