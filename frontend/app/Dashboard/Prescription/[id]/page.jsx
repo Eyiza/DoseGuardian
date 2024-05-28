@@ -1,11 +1,11 @@
 import DashLayout from '@/components/DashLayout'
-import PrescriptionPage from '@/components/Dashboard/Prescription/PrescriptionPage'
+import PrescriptionID from '@/components/Dashboard/Prescription/PrescriptionID'
 import React from 'react'
 
-function page() {
+function page({ params }) {
   return (
     <DashLayout>
-        <PrescriptionPage/>
+      <PrescriptionID id={params.id}/>
     </DashLayout>
   )
 }

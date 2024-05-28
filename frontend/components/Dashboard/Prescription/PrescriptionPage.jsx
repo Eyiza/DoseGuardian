@@ -1,10 +1,10 @@
 
-import { Card, CardHeader, CardTitle } from '../ui/card'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../ui/dialog'
-import { Button } from '../ui/button'
+import { Card, CardHeader, CardTitle } from '../../ui/card'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '../../ui/dialog'
+import { Button } from '../../ui/button'
 import Prescription from './Prescription'
 import PrescriptionDetails from './PrescriptionDetails'
-import { ScrollArea } from '../ui/scroll-area'
+import { ScrollArea } from '../../ui/scroll-area'
 
 function PrescriptionPage() {
    

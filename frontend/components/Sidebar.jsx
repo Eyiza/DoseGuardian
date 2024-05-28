@@ -3,12 +3,15 @@ import React from 'react'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from './ui/alert-dialog'
 import { Button } from './ui/button'
 import Cookies from 'js-cookie'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
+import { useAuth } from '@/lib/userContext'
+
 
 function Sidebar() {
-
     const router = useRouter()
+    const pathname = usePathname()
+    const { urlID } = useAuth();
     const handleLogout = async () => {
         try {
             const response = await fetch('https://doseguardianapi.onrender.com/logout', {
@@ -36,13 +39,13 @@ function Sidebar() {
         <div className='flex flex-col items-center h-screen'>
             <div className='flex-1'>
             <ul className='flex flex-col items-center justify-center gap-5 mt-10'>
-                <Link href={`/Dashboard`}>
-                <li className='text-base font-semibold cursor-pointer hover:underline'>Home</li>
+                <Link href={`/Dashboard`} className={`${pathname === '/Dashboard' ? 'bg-white text-black transition duration-150 ease-linear rounded-md px-8 py-1' : ''}`}>
+                <li className='text-base font-semibold cursor-pointer '>Home</li>
                 </Link>
 
-              <Link href={`/Dashboard/Prescription`}><li className='text-base font-semibold cursor-pointer hover:underline'>Prescription</li></Link>
+              <Link  className={`${pathname === `/Dashboard/Prescription/${urlID}` || pathname === `/Dashboard/Prescription`  ? 'bg-white text-black transition duration-150 ease-linear rounded-md px-10 py-1' : ''}`}  href={`/Dashboard/Prescription`}><li className='text-base font-semibold cursor-pointer '>Prescription</li></Link>
             
-            <Link href={`/Dashboard/Account`}><li className='text-base font-semibold cursor-pointer hover:underline'>Account</li></Link>
+            <Link className={`${pathname === '/Dashboard/Account' ? 'bg-white text-black transition duration-150 ease-linear rounded-md px-10 py-1' : ''}`} href={`/Dashboard/Account`}><li className='text-base font-semibold cursor-pointer '>Account</li></Link>
             </ul>
         </div>
         

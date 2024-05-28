@@ -10,9 +10,8 @@ import {
     CardTitle,
   } from "@/components/ui/card"
 import { Button } from './ui/button';
-import Account from './Dashboard/Account';
-import Prescription from './Dashboard/Prescription';
-import PrescriptionLoading from './Dashboard/PrescriptionLoading'
+
+
 import { useRouter } from 'next/navigation';
 import {
   Dialog,
@@ -26,7 +25,10 @@ import {
 import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
 import { Badge } from './ui/badge';
-import PrescriptionDashLoading from './Dashboard/PrescriptionDashLoading';
+import PrescriptionDashLoading from './Dashboard/Prescription/PrescriptionDashLoading';
+import Prescription from './Dashboard/Prescription/Prescription';
+import Link from 'next/link';
+
 
 function Dashboard() {
     const { user } = useAuth();
@@ -56,7 +58,9 @@ function Dashboard() {
   
     useEffect(() => {
       fetchPrescriptions();
-    }, []);
+
+      if(!user) {return router.push('/Dashboard')}
+    }, [user]);
 
   return (
     <div className=''>
@@ -90,18 +94,20 @@ function Dashboard() {
       {loading?(<PrescriptionDashLoading/>): (
          <div className='mt-10 mx-10 grid grid-cols-3 gap-5'>
          {prescriptions?.map((data) => (
-              <Card key={data._id} className="w-[300px] p-4 cursor-pointer">
-              <CardHeader >
-              <CardTitle className="whitespace-nowrap">S/N: {data.dispenserSerialNumber}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-2">
-            <p><span>Medication:</span> {data.medications.length}</p>
-            <p><span>Duration:</span> {data.duration}</p>
-            </CardContent>
-            <CardFooter>
-            <p>Status: {data.active?(<Badge>Active</Badge>):(<Badge variant="secondary">Not Active</Badge>)} </p>
-            </CardFooter>
+              <Link key={data._id} href={`/Dashboard/Prescription/${data._id}`}>
+              <Card  className="w-[300px] p-4 cursor-pointer">
+                  <CardHeader >
+                  <CardTitle className="whitespace-nowrap">S/N: {data.dispenserSerialNumber}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                <p><span>Medication:</span> {data.medications.length}</p>
+                <p><span>Duration:</span> {data.duration}</p>
+                </CardContent>
+                <CardFooter>
+                <p>Status: {data.active?(<Badge>Active</Badge>):(<Badge variant="secondary">Not Active</Badge>)} </p>
+                </CardFooter>
               </Card>
+              </Link>
          ))} 
      </div>
     )}

@@ -1,7 +1,4 @@
 'use client'
-import { Card, CardContent, CardFooter, CardHeader } from '../ui/card'
-import { Button } from '../ui/button'
-import { Label } from '../ui/label'
 import {
   Select,
   SelectContent,
@@ -10,15 +7,17 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "../../components/ui/select"
+} from "../../../components/ui/select"
 import { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
-import { ScrollArea } from '../ui/scroll-area'
+import { ScrollArea } from '../../ui/scroll-area'
 
-import SerialLoading from './SerialLoading'
+import SerialLoading from '../SerialLoading'
 import { useRouter } from 'next/navigation'
 
 import { Circles } from 'react-loader-spinner'
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 
 
 function Prescription() {
