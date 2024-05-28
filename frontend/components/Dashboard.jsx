@@ -58,9 +58,7 @@ function Dashboard() {
   
     useEffect(() => {
       fetchPrescriptions();
-
-      if(!user) {return router.push('/Dashboard')}
-    }, [user]);
+    }, []);
 
   return (
     <div className=''>

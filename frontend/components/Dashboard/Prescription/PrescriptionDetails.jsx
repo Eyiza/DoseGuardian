@@ -37,8 +37,8 @@ function PrescriptionDetails() {
     {Loading?(<PrescriptionLoading/>): (
          <div className='mt-10 mx-10 grid grid-cols-3 gap-5'>
          {Prescription?.map((data) => (
-          <Link href={`Prescription/${data._id}`}>
-           <Card key={data._id} className="w-[300px] p-4 cursor-pointer">
+          <Link key={data._id} href={`Prescription/${data._id}`}>
+           <Card  className="w-[300px] p-4 cursor-pointer">
               <CardHeader >
               <CardTitle className="whitespace-nowrap">S/N: {data.dispenserSerialNumber}</CardTitle>
             </CardHeader>
