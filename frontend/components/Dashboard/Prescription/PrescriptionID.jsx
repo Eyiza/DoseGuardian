@@ -44,23 +44,23 @@ function PrescriptionID({id}) {
       console.log(error)
     }
   }
-  // const handleDeactivate  = async (id_tage) => {
-  //   const token = Cookies.get('user')
-  //   try {
-  //     const response = await fetch(`https://doseguardianapi.onrender.com/prescription/${id_tage}`, {
-  //       method: 'DELETE',
-  //       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-  //     })
-  //     const data = await response.json()
-  //     if(data.success){
-  //       fetchID(id)
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
+  const handleDeactivate  = async () => {
+    const token = Cookies.get('user')
+    try {
+      const response = await fetch(`https://doseguardianapi.onrender.com/deactivate/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      })
+      const data = await response.json()
+      if(data.success){
+        fetchID(id)
+      }
+    } catch (error) {
+      console.log(error)
+    }
     
 
-  // }
+  }
   return (
     <div>
      {loading?(<PrescriptionIDLoading/>): (
@@ -120,6 +120,8 @@ function PrescriptionID({id}) {
       <AlertDialog>
         <AlertDialogTrigger asChild>
           {prescriptioID?.active?(<Button variant="destructive">Deactivate</Button>): ('')}
+
+          {/* <Button variant="destructive">Deactivate</Button> */}
           
           
         </AlertDialogTrigger>
@@ -130,7 +132,7 @@ function PrescriptionID({id}) {
           <AlertDialogFooter>
             <AlertDialogCancel>No, Sorry</AlertDialogCancel>
             <AlertDialogAction>
-              {/* <Button onClick={handleDeactivate(id)}  type="button">Yes, Sure</Button> */}
+              <Button onClick={handleDeactivate}  type="button">Yes, Sure</Button>
               </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
