@@ -22,7 +22,7 @@ router
     .post('/prescription', isAuth, PrescriptionController.create)
     .get('/prescriptions', isAuth, PrescriptionController.getAll)
     .get('/prescription/:id', isAuth, PrescriptionController.getbyId)
-    .delete('/prescription/:id', isAuth, PrescriptionController.deactivate)
+    .delete('/deactivate/:id', isAuth, PrescriptionController.deactivate)
 
     // Arduino routes
     .get('/dispenser-prescription/:serialNumber', ArduinoController.getInstructionsForDispenser)
