@@ -51,11 +51,11 @@ function Login() {
           title: 'Login Successful',
           text: 'Welcome back!',
           showConfirmButton: false,
-          timer: 1500
+          timer: 2000
         });
         router.push('/Dashboard');
       } else {
-        Swal.fire({
+        Swal.fire({ 
           icon: 'warning',
           title: 'Login Failed',
           text: data.message,

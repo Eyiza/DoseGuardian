@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation'
 import { Circles } from 'react-loader-spinner'
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-
+import Swal from 'sweetalert2';
 
 function Prescription() {
   const router = useRouter()
@@ -32,15 +32,13 @@ function Prescription() {
   const [PhoneNum, setPhoneNum] = useState('')
   const [Duration, setDuration] = useState(1)
 
-
-
-
   const [SerialNumber, setSerialNumber] = useState([])
 
   const [fields, setFields] = useState([]); // Initial fields
   const [visibleGroups, setVisibleGroups] = useState([true]);
   const [loading , setisLoading] = useState(true)
   const [searching, setSearching] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
 
   const newVisibleGroups = NumberofDrugs.length / 3 > visibleGroups.length
@@ -118,6 +116,7 @@ function Prescription() {
       email,
       PhoneNum
     }
+    setSubmitting(true)
     try {
       const response = await fetch(`https://doseguardianapi.onrender.com/prescription`, {
         method: 'POST',
@@ -125,11 +124,39 @@ function Prescription() {
         body:  JSON.stringify({medications: payload, duration: Duration, dispenserSerialNumber: SelectedSerialNumber, contact})
       })
       const data = await response.json()
+      setSubmitting(false)
       if(data.success){
-        router.push('Dashboard/Prescription')
+        Swal.fire({
+          title: 'Success!',
+          text: 'Prescription created successfully!',
+          icon: 'success',
+          // confirmButtonText: 'OK',
+          // confirmButtonColor: '#0077B6'
+          showConfirmButton: false,
+          timer: 1500
+        }).then(() => {
+          router.push('Dashboard/Prescription')
+        })
       }
-      console.log(data)
+      else {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Something went wrong!',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          confirmButtonColor: '#0077B6'
+        })
+      }
+      // console.log(data)
     } catch (error) {
+      setSubmitting(false)
+      Swal.fire({
+        title: 'Error!',
+        text: 'Something went wrong!',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#0077B6'
+      })
       console.log(error)
     }
 
@@ -330,7 +357,9 @@ function Prescription() {
         {SerialNumber?.length > 0 &&(<Button className={`${count == 3?'hidden':'block'}`} onClick={handleNextStep}>Next</Button>)}
         
         {count == 1 &&(<Button className={`${SerialNumber?.length > 0?'hidden':'block'}`} onClick={handleNextStep}>Next</Button>)}
-        {count == 3&&<Button onClick={handleSubmit} >Submit</Button>}
+        {count == 3&&<Button onClick={handleSubmit} >
+        {submitting ? <Circles height="20" width="20" color="white" ariaLabel="submitting" /> : 'Submit'}
+          </Button>}
         
   
         {/* <div className={`flex ${count > 1 ? "items-center justify-between" : "items-end justify-end"} mt-20`}>
