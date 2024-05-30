@@ -106,7 +106,7 @@ function PrescriptionID({id}) {
      <div>
        <Card className={' mt-10 ml-10'}>
          <CardHeader>
-           <CardTitle className="text-base whitespace-nowrap">User Information </CardTitle>
+           <CardTitle className="text-base whitespace-nowrap">Patient&apos;s Information </CardTitle>
          </CardHeader>
 
          <CardDescription className="mx-5 mb-5 flex flex-col gap-2 ">
