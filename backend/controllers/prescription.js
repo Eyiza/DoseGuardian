@@ -42,7 +42,7 @@ exports.create = async (req, res) => {
 
 exports.getAll = async (req, res) => {
     try {
-        const prescriptions = await Prescription.find();
+        const prescriptions = await Prescription.find().sort({ createdAt: -1 });
         return res.status(200).json({
           success: true,
           message: "Prescription found",
