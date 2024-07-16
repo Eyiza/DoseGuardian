@@ -48,10 +48,10 @@ function Login() {
         setUser(userDecode)
         Swal.fire({
           icon: 'success',
-          title: 'Login Successful',
-          text: 'Welcome back!',
+          title: 'Welcome back!',
+          text: 'You will be redirected to your dashboard shortly.',
           showConfirmButton: false,
-          timer: 2000
+          timer: 1500
         });
         router.push('/Dashboard');
       } else {
