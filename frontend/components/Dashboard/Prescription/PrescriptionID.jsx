@@ -82,18 +82,22 @@ function PrescriptionID({id}) {
          <Table>
          <TableHeader>
            <TableRow>
-             <TableHead >Name </TableHead>
+            <TableHead >Cartridge No</TableHead>
+             <TableHead >Name   </TableHead>
              <TableHead>Dosage</TableHead>
              <TableHead>Interval</TableHead>
+             
            </TableRow>
          </TableHeader>
          <TableBody>
 
            {prescriptioID?.medications.map((med, index) => (
              <TableRow key={index}>
-             <TableCell>{med.name}</TableCell>
-             <TableCell>{med.dosage}</TableCell>
-             <TableCell>{med.interval}</TableCell>
+              <TableCell>{med.box_no}</TableCell>
+              <TableCell>{med.name}</TableCell>
+              <TableCell>{med.dosage}</TableCell>
+              <TableCell>{med.interval}</TableCell>
+             
            </TableRow>
            ))}
            
@@ -127,12 +131,12 @@ function PrescriptionID({id}) {
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure you want to Deactivative ?</AlertDialogTitle>
+            <AlertDialogTitle>Are you sure you want to deactivative this prescription?</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>No, Sorry</AlertDialogCancel>
+            <AlertDialogCancel>No</AlertDialogCancel>
             <AlertDialogAction>
-              <Button onClick={handleDeactivate}  type="button">Yes, Sure</Button>
+              <Button onClick={handleDeactivate}  type="button">Yes</Button>
               </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
