@@ -70,8 +70,9 @@ function Dashboard() {
       </CardHeader>
       <CardContent className="space-y-2">
       Welcome to DoseGuardian, your dedicated partner in medication management! <br/>
-      This platform is designed to make managing medications simple, efficient, and stress-free. Whether it&apos;s tracking prescriptions, setting up reminders, or getting detailed information about medications, we&apos;ve got you covered. <br/>
-      Health is our priority, and we&apos;re committed to achieving the best possible outcomes. Welcome aboard!
+      This platform is designed to make managing medications simple, efficient, and stress-free. Whether it&apos;s tracking prescriptions, setting up reminders, or getting detailed information about medications, we&apos;ve got you covered.
+      Health is our priority, and we&apos;re committed to achieving the best possible outcomes.  <br/>
+      Welcome aboard!
       </CardContent>
       <CardFooter>
         <Dialog>

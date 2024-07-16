@@ -17,12 +17,15 @@ import { Badge } from '@/components/ui/badge'
 import PrescriptionIDLoading from './PrescriptionIDLoading'
 import { useAuth } from '@/lib/userContext'
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog'
+import { Circles } from 'react-loader-spinner'
+import Swal from 'sweetalert2';
 
 function PrescriptionID({id}) {
   const { seturID } = useAuth();
   seturID(id)
   const [prescriptioID, setprescriptionID] = useState()
   const [loading, setloading] = useState(true)
+  const [deactivate, setDeactivate] = useState(false)
 
   useEffect(()=> {
     fetchID(id)
@@ -46,16 +49,35 @@ function PrescriptionID({id}) {
   }
   const handleDeactivate  = async () => {
     const token = Cookies.get('user')
+    setDeactivate(true)
     try {
       const response = await fetch(`https://doseguardianapi.onrender.com/deactivate/${id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       })
       const data = await response.json()
+      
       if(data.success){
+        
+        Swal.fire({
+          icon: 'success',
+          // title: 'Prescription Deactivated',
+          text: 'Prescription has been deactivated',
+          showConfirmButton: true,
+          confirmButtonColor: '#202123',
+        })
         fetchID(id)
+        setDeactivate(false)
       }
     } catch (error) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Something went wrong!',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#202123'
+      })
+      setDeactivate(false)
       console.log(error)
     }
     
@@ -82,18 +104,22 @@ function PrescriptionID({id}) {
          <Table>
          <TableHeader>
            <TableRow>
-             <TableHead >Name </TableHead>
+            <TableHead >Cartridge No</TableHead>
+             <TableHead >Name   </TableHead>
              <TableHead>Dosage</TableHead>
              <TableHead>Interval</TableHead>
+             
            </TableRow>
          </TableHeader>
          <TableBody>
 
            {prescriptioID?.medications.map((med, index) => (
              <TableRow key={index}>
-             <TableCell>{med.name}</TableCell>
-             <TableCell>{med.dosage}</TableCell>
-             <TableCell>{med.interval}</TableCell>
+              <TableCell>{med.box_no}</TableCell>
+              <TableCell>{med.name}</TableCell>
+              <TableCell>{med.dosage}</TableCell>
+              <TableCell>{med.interval}</TableCell>
+             
            </TableRow>
            ))}
            
@@ -127,12 +153,15 @@ function PrescriptionID({id}) {
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure you want to Deactivative ?</AlertDialogTitle>
+            <AlertDialogTitle>Are you sure you want to deactivative this prescription?</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>No, Sorry</AlertDialogCancel>
+            <AlertDialogCancel>No</AlertDialogCancel>
             <AlertDialogAction>
-              <Button onClick={handleDeactivate}  type="button">Yes, Sure</Button>
+              {/* <Button onClick={handleDeactivate}  type="button">Yes</Button> */}
+              <Button className='hover:bg-[#222] hover:text-white' onClick={handleDeactivate}>
+                {deactivate ? <Circles height="20" width="20" color="white" ariaLabel="circles-loading" wrapperStyle={{}} wrapperClass="" visible={true} /> : 'Yes'}
+              </Button>
               </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
