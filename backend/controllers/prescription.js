@@ -10,6 +10,11 @@ exports.create = async (req, res) => {
         if (!dispenser) return res.status(404).json({ success: false, message: "Dispenser not found" });
         if (!dispenser.available) return res.status(400).json({ success: false, message: "Dispenser is not available" });
 
+        if (!medications || medications.length === 0) return res.status(400).json({ success: false, message: "Medications are required" });
+
+        // If length of medications is not equal to the number of layers in dispenser
+        if (medications.length !== dispenser.layers) return res.status(400).json({ success: false, message: "Number of medications should be equal to the number of layers in dispenser" });5
+
         const prescription = new Prescription({
           user: req.userData.user._id,
           medications,

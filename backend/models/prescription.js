@@ -8,6 +8,7 @@ const PrescriptionSchema = new Schema(
             required: true
         },
         medications: [{
+            box_no: Number,
             name: String,
             dosage: Number,
             interval: Number
