@@ -56,10 +56,10 @@ function Sidebar() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Confirm Logout</AlertDialogTitle>
+          <AlertDialogTitle>Leaving already?</AlertDialogTitle>
           <AlertDialogDescription>
             {/* Please don&apos;t log out stay and enjoy our service  */}
-            Leaving already? Confirm to log out and close your session.
+             Confirm to log out and close your session.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

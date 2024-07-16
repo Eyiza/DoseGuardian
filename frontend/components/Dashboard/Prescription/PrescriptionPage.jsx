@@ -15,12 +15,12 @@ function PrescriptionPage() {
             <CardHeader>
         <CardTitle>Prescriptions</CardTitle>
       </CardHeader>
-      <div>
+      <div> 
       <Dialog>
       <DialogTrigger asChild>
       <Button>Create new prescription</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] h-[450px]">
+      <DialogContent className="sm:max-w-[500px] h-[500px]">
         <DialogHeader>
           <DialogTitle>Create Prescription</DialogTitle>
           <DialogDescription>
