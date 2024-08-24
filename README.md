@@ -5,7 +5,7 @@ The device is controlled by a web app that allows you to set the time when you n
 ### Software Components
   * Frontend: [NextJS](https://nextjs.org/)
   * Backend: [NodeJS](https://nodejs.org/), [ExpressJS](https://expressjs.com/)
-  * Database: MongoDB
+  * Database: [MongoDB](https://www.mongodb.com/)
   * Hosting: [Render](https://render.com/), [Vercel](https://vercel.com/)
 
 ### Hardware Components
@@ -25,19 +25,19 @@ The device is controlled by a web app that allows you to set the time when you n
 - [Fusion 360 Design](https://a360.co/4cEBtbW)
 
 ### Circuit Diagram
-![Circuit Diagram]()
+- [Circuit Diagram]()
 
-### References
-- [Stepper Motor with ESP8266](https://randomnerdtutorials.com/esp8266-nodemcu-stepper-motor-28byj-48-uln2003/)
-- [Stepper Motor with Arduino](https://community.element14.com/products/arduino/arduino-projects/b/blog/posts/how-to-control-28byj-48-stepper-motor-with-uln2003-driver-and-arduino)
-- [IR Sensor with Arduino](https://circuitdigest.com/microcontroller-projects/interfacing-ir-sensor-module-with-arduino)
+### Process Discussion and Progress
+- [Dose Guardian]()
 
 ### Deployments
 - Frontend: [DoseGuardian](https://dose-guardian.vercel.app/)
 - Backend: [DoseGuardian API](https://doseguardianapi.onrender.com)
 
-### Process and Progress
-[Youtube Video]()
+### References
+- [Stepper Motor with ESP8266](https://randomnerdtutorials.com/esp8266-nodemcu-stepper-motor-28byj-48-uln2003/)
+- [Stepper Motor with Arduino](https://community.element14.com/products/arduino/arduino-projects/b/blog/posts/how-to-control-28byj-48-stepper-motor-with-uln2003-driver-and-arduino)
+- [IR Sensor with Arduino](https://circuitdigest.com/microcontroller-projects/interfacing-ir-sensor-module-with-arduino)
 
 ### Author
 Precious Michael 
