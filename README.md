@@ -38,6 +38,7 @@ The device is controlled by a web app that allows you to set the time when you n
 - [Stepper Motor with ESP8266](https://randomnerdtutorials.com/esp8266-nodemcu-stepper-motor-28byj-48-uln2003/)
 - [Stepper Motor with Arduino](https://community.element14.com/products/arduino/arduino-projects/b/blog/posts/how-to-control-28byj-48-stepper-motor-with-uln2003-driver-and-arduino)
 - [IR Sensor with Arduino](https://circuitdigest.com/microcontroller-projects/interfacing-ir-sensor-module-with-arduino)
+- [Buzzer Basics](https://srituhobby.com/how-to-make-buzzer-sound-in-arduino-step-by-step-instructions/)
 
 ### Author
 Precious Michael 
