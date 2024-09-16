@@ -1,14 +1,14 @@
 #include <Stepper.h>
 
-const int Motor1IN1 = 4;
-const int Motor1IN2 = 5;
-const int Motor1IN3 = 6;
-const int Motor1IN4 = 7;
+const int Motor1IN1 = 7;
+const int Motor1IN2 = 6;
+const int Motor1IN3 = 5;
+const int Motor1IN4 = 4;
 
-const int Motor2IN1 = 8;
-const int Motor2IN2 = 9;
-const int Motor2IN3 = 10;
-const int Motor2IN4 = 11;
+const int Motor2IN1 = 11;
+const int Motor2IN2 = 10;
+const int Motor2IN3 = 9;
+const int Motor2IN4 = 8;
 
 const int Buzzer = 2;
 const int IRSensor = 3;
