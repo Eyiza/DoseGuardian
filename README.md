@@ -24,11 +24,11 @@ The device is controlled by a web app that allows you to set the time when you n
 ### Product Design
 - [Fusion 360 Design](https://a360.co/4cEBtbW)
 
-### Circuit Diagram
+<!-- ### Circuit Diagram
 - [Circuit Diagram]()
 
 ### Process Discussion and Progress
-- [Dose Guardian]()
+- [Dose Guardian]() -->
 
 ### Deployments
 - Frontend: [DoseGuardian](https://dose-guardian.vercel.app/)
